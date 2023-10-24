@@ -1,5 +1,10 @@
 #![no_std]
 
+extern crate alloc;
+
+use alloc::string::ToString;
+use core::panic::PanicInfo;
+
 #[repr(C)]
 #[derive(Eq, PartialEq, Copy, Clone, Debug)]
 pub enum Block {
@@ -121,4 +126,10 @@ pub fn println(s: &str) {
         mc_putc(c as i32);
     }
     mc_putc('\n' as i32);
+}
+
+#[panic_handler]
+fn panic(info: &PanicInfo) -> ! {
+    println(&info.to_string());
+    loop { mc_sleep() }
 }
