@@ -1,8 +1,5 @@
 #![no_std]
 
-extern crate alloc;
-
-use alloc::string::ToString;
 use core::panic::PanicInfo;
 
 #[repr(C)]
@@ -129,7 +126,7 @@ pub fn println(s: &str) {
 }
 
 #[panic_handler]
-fn panic(info: &PanicInfo) -> ! {
-    println(&info.to_string());
-    loop { mc_sleep() }
+fn panic(_info: &PanicInfo) -> ! {
+    println("RUST PANIC - entering infinite loop!");
+    loop { mc_sleep(); }
 }
