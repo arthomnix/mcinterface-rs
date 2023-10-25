@@ -69,10 +69,10 @@ extern {
     #[link_name = "print"]
     fn _mci_unsafe_print(value: i32);
 
-    /// Store an 8 bit value in memory.
+    /// Set all bytes in a region of memory (with length `length`, starting from `ptr`) to `value`.
     ///
-    /// Safety: `ptr` must be aligned to 32 bytes.
-    pub fn store_8(ptr: *mut i32, value: i32);
+    /// As far as I can tell, behaves like C `memset()`.
+    pub fn memset(ptr: *mut i32, value: i32, length: u32) -> *mut i32;
 
     #[link_name = "turtle_x"]
     fn _mci_unsafe_turtle_x(value: i32);
@@ -86,8 +86,14 @@ extern {
     fn _mci_unsafe_turtle_set(block: Block);
     #[link_name = "turtle_get"]
     fn _mci_unsafe_turtle_get() -> Block;
-    #[link_name = "turtle_get_char"]
-    fn _mci_unsafe_turtle_get_char() -> i32;
+    #[link_name = "turtle_copy_region"]
+    fn _mci_unsafe_turtle_copy_region(x_span: i32, y_span: i32, z_span: i32);
+    #[link_name = "turtle_paste_region_masked"]
+    fn _mci_unsafe_turtle_paste_region_masked(x_span: i32, y_span: i32, z_span: i32);
+    #[link_name = "turtle_copy"]
+    fn _mci_unsafe_turtle_copy();
+    #[link_name = "turtle_paste"]
+    fn _mci_unsafe_turtle_paste();
 
     #[link_name = "mc_sleep"]
     fn _mci_unsafe_mc_sleep();
@@ -159,10 +165,36 @@ pub fn turtle_check(block: Block) -> bool {
     block == unsafe { _mci_unsafe_turtle_get() }
 }
 
-/// wasmcraft2 documentation is unclear about what this function does; included for completeness.
+/// Copy a given region from the turtle's position.
+///
+/// Paste the region using [`turtle_paste_region_masked()`].
 #[inline]
-pub fn turtle_get_char() -> i32 {
-    unsafe { _mci_unsafe_turtle_get_char() }
+pub fn turtle_copy_region(x_span: i32, y_span: i32, z_span: i32) {
+    unsafe { _mci_unsafe_turtle_copy_region(x_span, y_span, z_span); }
+}
+
+/// Paste the previously copied region from the turtle's position, ignoring air blocks.
+///
+/// To copy a region, use [`turtle_copy_region()`].
+#[inline]
+pub fn turtle_paste_region_masked(x_span: i32, y_span: i32, z_span: i32) {
+    unsafe { _mci_unsafe_turtle_paste_region_masked(x_span, y_span, z_span); }
+}
+
+/// Copy the block at the turtle's position.
+///
+/// Paste the block using [`turtle_paste()`].
+#[inline]
+pub fn turtle_copy() {
+    unsafe { _mci_unsafe_turtle_copy() }
+}
+
+/// Place the previously copied block at the turtle's position.
+///
+/// To copy a block, use [`turtle_copy()`].
+#[inline]
+pub fn turtle_paste() {
+    unsafe { _mci_unsafe_turtle_paste() }
 }
 
 /// Pauses execution until the next game tick.
