@@ -186,7 +186,8 @@ pub fn mc_putc(ch: char) {
 /// Print a string to the game chat. Any printed characters will not appear until a newline (`'\n'`) is written.
 /// Only ASCII printable characters will be printed; any other characters will appear as a � symbol.
 ///
-/// If you want to print a string to the game chat with a newline, consider using [`println`].
+/// If you want to print a string to the game chat with a newline, consider using [`println()`].
+/// If formatting is required, consider using [`print!`] or [`println!`].
 pub fn print_str(s: &str) {
     for c in s.chars() {
         mc_putc(c);
@@ -195,6 +196,8 @@ pub fn print_str(s: &str) {
 
 /// Print a string to the game chat, with a newline.
 /// Only ASCII printable characters will be printed; any other characters will appear as a � symbol.
+///
+/// If formatting is required, consider using [`println!`].
 pub fn println(s: &str) {
     for c in s.chars() {
         mc_putc(c);
