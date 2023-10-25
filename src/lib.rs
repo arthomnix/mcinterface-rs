@@ -27,7 +27,7 @@
 //! opt-level = 1
 //! ```
 //! wasmcraft2 does not support the `main` function - your entrypoint must be declared as follows:
-//! ```rust
+//! ```no_run
 //! #[no_mangle]
 //! pub extern fn _start() -> i32 {
 //!     // Your code goes here...
