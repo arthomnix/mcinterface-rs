@@ -37,6 +37,9 @@
 
 #![no_std]
 
+#[cfg(feature = "fmt")]
+pub mod fmt;
+
 use core::panic::PanicInfo;
 
 /// An enum representing a Minecraft block.
