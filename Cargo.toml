@@ -1,5 +1,13 @@
 [package]
 name = "mcinterface"
+license = "MIT"
+authors = [ "arthomnix" ]
+keywords = [ "minecraft", "wasm", "webassembly", "wasmcraft" ]
+categories = [ "api-bindings", "wasm", "no-std::no-alloc" ]
+description = "Rust bindings for wasmcraft2 API, allowing you to run Rust code in vanilla Minecraft"
+homepage = "https://github.com/arthomnix/mcinterface-rs"
+repository = "https://github.com/arthomnix/mcinterface-rs"
+readme = "README.md"
 version = "0.2.0"
 edition = "2021"
 

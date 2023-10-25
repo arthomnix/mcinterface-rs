@@ -6,7 +6,7 @@
 //!
 //! When writing programs for wasmcraft2, it is important to note its limitations - notably, floating
 //! point operations are not supported, so using the [`fixed`](https://docs.rs/fixed/latest/fixed/)
-//! crate is recommended if integers are not enough. Minecraft programs must be `#![no_std]`; this
+//! crate is recommended if integers are not enough. Minecraft programs must be `#![no_main]` and `#![no_std]`; this
 //! crate provides a Minecraft-compatible panic handler but there is no allocator. Decreasing the default
 //! stack size is recommended - you can do this by adding the following to your `.cargo/config`:
 //! ```toml
@@ -25,6 +25,14 @@
 //! ```toml
 //! [profile.dev]
 //! opt-level = 1
+//! ```
+//! wasmcraft2 does not support the `main` function - your entrypoint must be declared as follows:
+//! ```rust
+//! #[no_mangle]
+//! pub extern fn _start() -> i32 {
+//!     // Your code goes here...
+//!     return 0;
+//! }
 //! ```
 
 #![no_std]
