@@ -2,7 +2,7 @@
 //!
 //! [wasmcraft2](https://github.com/SuperTails/wasmcraft2) is a WebAssembly to Minecraft datapack
 //! transpiler. This library provides safe access to wasmcraft's API, containing all functions present
-//! in wasmcraft's `mcinterface.h` as well as some additional helper functions.
+//! in wasmcraft's `mcinterface.h` as well as some additional helper functions and macros.
 //!
 //! When writing programs for wasmcraft2, it is important to note its limitations - notably, floating
 //! point operations are not supported, so using the [`fixed`](https://docs.rs/fixed/latest/fixed/)
