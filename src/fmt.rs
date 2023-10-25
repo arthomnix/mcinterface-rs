@@ -36,7 +36,8 @@ impl Write for MciWriteStream {
 
 /// An implementation of `print!` using [`MciWriteStream`]. Should behave similarly to `std::print!`,
 /// with the caveat that no text will be printed until a newline is printed (due to the fact that
-/// Minecraft has no way of modifying a line of text in the chat once it has been sent).
+/// Minecraft has no way of modifying a line of text in the chat once it has been sent), and any characters
+/// that are not printable ASCII characters will appear as �.
 #[macro_export]
 macro_rules! print {
     ($($arg:tt)*) => {{
@@ -45,7 +46,8 @@ macro_rules! print {
     }};
 }
 
-/// An implementation of `println!` using [`MciWriteStream`]. Should behave similarly to `std::println!`.
+/// An implementation of `println!` using [`MciWriteStream`]. Should behave similarly to `std::println!`,
+/// with the caveat that any characters that are not printable ASCII characters will appear as �.
 #[macro_export]
 macro_rules! println {
     () => { mc_putc('\n'); };
