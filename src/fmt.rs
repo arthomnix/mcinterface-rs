@@ -23,11 +23,13 @@ use core::fmt::Write;
 pub struct MciWriteStream;
 
 impl Write for MciWriteStream {
+    #[inline(always)]
     fn write_str(&mut self, s: &str) -> core::fmt::Result {
         crate::print_str(s);
         Ok(())
     }
 
+    #[inline(always)]
     fn write_char(&mut self, c: char) -> core::fmt::Result {
         crate::mc_putc(c);
         Ok(())

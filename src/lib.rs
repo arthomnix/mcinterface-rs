@@ -102,32 +102,32 @@ extern {
 }
 
 /// Print an integer to the Minecraft chat.
-#[inline]
+#[inline(always)]
 pub fn print(value: i32) {
     unsafe { _mci_unsafe_print(value) }
 }
 
 /// Set the x position of the turtle
-#[inline]
+#[inline(always)]
 pub fn turtle_x(value: i32) {
     unsafe { _mci_unsafe_turtle_x(value) }
 }
 
 /// Set the y position of the turtle.
-#[inline]
+#[inline(always)]
 pub fn turtle_y(value: i32) {
     unsafe { _mci_unsafe_turtle_y(value) }
 }
 
 /// Set the z position of the turtle.
-#[inline]
+#[inline(always)]
 pub fn turtle_z(value: i32) {
     unsafe { _mci_unsafe_turtle_z(value) }
 }
 
 /// Set the position of the turtle. This will call `turtle_x`, `turtle_y` and `turtle_z`, so it is
 /// more efficient to call those individually if you do not need to change all 3 coordinates.
-#[inline]
+#[inline(always)]
 pub fn turtle_pos(x: i32, y: i32, z: i32) {
     unsafe {
         _mci_unsafe_turtle_x(x);
@@ -142,25 +142,25 @@ pub fn turtle_pos(x: i32, y: i32, z: i32) {
 /// so `turtle_fill(block, 0, 0, 0)` is equivalent to `turtle_set(block)`
 ///
 /// This function is unstable, and may cause wasmcraft2 to fail compilation.
-#[inline]
+#[inline(always)]
 pub fn turtle_fill(block: Block, x_span: i32, y_span: i32, z_span: i32) {
     unsafe { _mci_unsafe_turtle_fill(block, x_span, y_span, z_span) }
 }
 
 /// Set the block at the turtle's position.
-#[inline]
+#[inline(always)]
 pub fn turtle_set(block: Block) {
     unsafe { _mci_unsafe_turtle_set(block) }
 }
 
 /// Get the block at the turtle's position.
-#[inline]
+#[inline(always)]
 pub fn turtle_get() -> Block {
     unsafe { _mci_unsafe_turtle_get() }
 }
 
 /// Check if the given block is present at the turtle's position.
-#[inline]
+#[inline(always)]
 pub fn turtle_check(block: Block) -> bool {
     block == unsafe { _mci_unsafe_turtle_get() }
 }
@@ -168,7 +168,7 @@ pub fn turtle_check(block: Block) -> bool {
 /// Copy a given region from the turtle's position.
 ///
 /// Paste the region using [`turtle_paste_region_masked()`].
-#[inline]
+#[inline(always)]
 pub fn turtle_copy_region(x_span: i32, y_span: i32, z_span: i32) {
     unsafe { _mci_unsafe_turtle_copy_region(x_span, y_span, z_span); }
 }
@@ -176,7 +176,7 @@ pub fn turtle_copy_region(x_span: i32, y_span: i32, z_span: i32) {
 /// Paste the previously copied region from the turtle's position, ignoring air blocks.
 ///
 /// To copy a region, use [`turtle_copy_region()`].
-#[inline]
+#[inline(always)]
 pub fn turtle_paste_region_masked(x_span: i32, y_span: i32, z_span: i32) {
     unsafe { _mci_unsafe_turtle_paste_region_masked(x_span, y_span, z_span); }
 }
@@ -184,7 +184,7 @@ pub fn turtle_paste_region_masked(x_span: i32, y_span: i32, z_span: i32) {
 /// Copy the block at the turtle's position.
 ///
 /// Paste the block using [`turtle_paste()`].
-#[inline]
+#[inline(always)]
 pub fn turtle_copy() {
     unsafe { _mci_unsafe_turtle_copy() }
 }
@@ -192,7 +192,7 @@ pub fn turtle_copy() {
 /// Place the previously copied block at the turtle's position.
 ///
 /// To copy a block, use [`turtle_copy()`].
-#[inline]
+#[inline(always)]
 pub fn turtle_paste() {
     unsafe { _mci_unsafe_turtle_paste() }
 }
@@ -202,7 +202,7 @@ pub fn turtle_paste() {
 /// wasmcraft2 will automatically insert sleep calls before functions and inside loops. However, if
 /// your program contains large stretches of code without loops or function calls, it may be necessary
 /// to manually insert `mc_sleep()` calls. See the wasmcraft2 README for more information.
-#[inline]
+#[inline(always)]
 pub fn mc_sleep() {
     unsafe { _mci_unsafe_mc_sleep() }
 }
@@ -210,7 +210,7 @@ pub fn mc_sleep() {
 /// Write a character to the game chat. Characters will not appear until a newline (`'\n'`) is written.
 ///
 /// Only ASCII printable characters will be printed; any other characters will appear as a � symbol.
-#[inline]
+#[inline(always)]
 pub fn mc_putc(ch: char) {
     unsafe { _mci_unsafe_mc_putc(ch as i32) }
 }
