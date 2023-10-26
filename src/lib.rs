@@ -242,6 +242,12 @@ pub fn println(s: &str) {
 ///
 /// This is useful for configuring your program as there is no good way of asking for user input at
 /// runtime.
+///
+/// Usage:
+/// ```ignore
+/// # use mcinterface::env_i32_default;
+/// let x = env_i32_default!("SOME_ENVIRONMENT_VARIABLE", 50);
+/// ```
 #[macro_export]
 macro_rules! env_i32_default {
     ($var:literal,$default:literal) => {
