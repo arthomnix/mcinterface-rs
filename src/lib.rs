@@ -250,9 +250,10 @@ pub fn println(s: &str) {
 /// ```
 #[macro_export]
 macro_rules! env_i32_default {
-    ($var:literal,$default:literal) => {
+    ($var:literal,$default:literal) => {{
+        use core::str::FromStr;
         option_env!($var).map_or($default, |n| i32::from_str(n).unwrap_or($default))
-    };
+    }};
 }
 
 #[panic_handler]
