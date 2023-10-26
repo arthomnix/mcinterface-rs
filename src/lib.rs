@@ -237,6 +237,18 @@ pub fn println(s: &str) {
     mc_putc('\n');
 }
 
+/// Get an i32 value from the compile-time environment, or if the environment variable is not present
+/// or is not an i32, use the provided default value.
+///
+/// This is useful for configuring your program as there is no good way of asking for user input at
+/// runtime.
+#[macro_export]
+macro_rules! env_i32_default {
+    ($var:literal,$default:literal) => {
+        option_env!($var).map_or($default, |n| i32::from_str(n).unwrap_or($default))
+    };
+}
+
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
     println("RUST PANIC - entering infinite loop!");
